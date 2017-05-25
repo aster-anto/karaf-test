@@ -70,14 +70,24 @@ RUN java -version
 RUN echo $JAVA_HOME
 RUN which java
 
-RUN $KARAF_HOME/bin/start \
-  && echo "feature:install webconsole" \
-  "feature:install wss-osgi-dependencies" \
-  "feature:install wss-osgi-jackson" \
-  "feature:install wss-osgi-email-dependencies" \
-  "feature:install wss-osgi-cxf" \
-  "feature:install wss-osgi-drools" \
-  && $KARAF_HOME/bin/stop
+#RUN $KARAF_HOME/bin/start \
+#  && echo "feature:install webconsole" \
+#  "feature:install wss-osgi-dependencies" \
+#  "feature:install wss-osgi-jackson" \
+#  "feature:install wss-osgi-email-dependencies" \
+#  "feature:install wss-osgi-cxf" \
+#  "feature:install wss-osgi-drools" \
+#  && $KARAF_HOME/bin/stop
+
+RUN $KARAF_HOME/bin/start; \
+    until $KARAF_HOME/bin/client -a 8103 -u karaf version; do sleep 5s; done; \
+    $KARAF_HOME/bin/client -a 8103 -u karaf feature:install webconsole; \
+    $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-dependencies; \
+    $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-jackson; \
+    $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-email-dependencies; \
+    $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-cxf; \
+    $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-drools; \
+    $KARAF_HOME/bin/stop;
 
 EXPOSE 8101 8443 8181 1099 44444 5701 54327
     
