@@ -64,6 +64,10 @@ VOLUME "$USER_HOME_DIR/.m2"
 
 #COPY ./karaf/* "$KARAF_HOME/deploy/"
 
+RUN java -verion
+RUN echo $JAVA_HOME
+RUN which java
+
 RUN $KARAF_HOME/bin/start \
   && echo "feature:install webconsole" \
   "feature:install wss-osgi-dependencies" \
