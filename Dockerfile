@@ -80,7 +80,11 @@ RUN echo $KARAF_HOME
 #  "feature:install wss-osgi-drools" \
 #  && $KARAF_HOME/bin/stop
 
-RUN $KARAF_HOME/bin/start clean; \
+EXPOSE 1099 8101 44444
+
+RUN /opt/karaf/bin/start clean; until /opt/karaf/bin/client -u karaf version; do sleep 5s; done; /opt/karaf/bin/stop;
+
+RUN $KARAF_HOME/bin/start; \
     until $KARAF_HOME/bin/client -a 8103 -u karaf version; do sleep 5s; done; \
     $KARAF_HOME/bin/client -a 8103 -u karaf feature:install webconsole; \
     $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-dependencies; \
@@ -90,7 +94,7 @@ RUN $KARAF_HOME/bin/start clean; \
     $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-drools; \
     $KARAF_HOME/bin/stop;
 
-EXPOSE 8101 8443 8181 1099 44444 5701 54327
+EXPOSE 8443 8181 5701 54327
     
 # Define default command.
 CMD ["bash"]
