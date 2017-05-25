@@ -59,9 +59,12 @@ RUN wget http://www-us.apache.org/dist/karaf/${KARAF_VERSION}/apache-karaf-${KAR
   mkdir /opt/karaf; \
   tar --strip-components=1 -C /opt/karaf -xzf apache-karaf-${KARAF_VERSION}.tar.gz; \
   rm apache-karaf-${KARAF_VERSION}.tar.gz; \
-  mkdir /deploy
+  mkdir /deploy; \
+  sed -i 's/^\(felix\.fileinstall\.dir\s*=\s*\).*$/\1\/deploy/' /opt/karaf/etc/org.apache.felix.fileinstall-deploy.cfg
 
-VOLUME ./karaf "$KARAF_HOME/deploy"
+VOLUME ["/deploy"]
+
+#VOLUME ./karaf "$KARAF_HOME/deploy"
 VOLUME "$USER_HOME_DIR/.m2"
 
 #COPY ./karaf/* "$KARAF_HOME/deploy/"
