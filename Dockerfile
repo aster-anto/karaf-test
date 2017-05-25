@@ -75,31 +75,31 @@ RUN echo $JAVA_HOME
 RUN which java
 RUN echo $KARAF_HOME
 
-RUN $KARAF_HOME/bin/karaf \
-  && echo "feature:install webconsole" \
-  "feature:install wss-osgi-dependencies" \
-  "feature:install wss-osgi-jackson" \
-  "feature:install wss-osgi-email-dependencies" \
-  "feature:install wss-osgi-cxf" \
-  "feature:install wss-osgi-drools" \
-  && $KARAF_HOME/bin/stop
+#RUN $KARAF_HOME/bin/karaf \
+#  && echo "feature:install webconsole" \
+#  "feature:install wss-osgi-dependencies" \
+#  "feature:install wss-osgi-jackson" \
+#  "feature:install wss-osgi-email-dependencies" \
+#  "feature:install wss-osgi-cxf" \
+#  "feature:install wss-osgi-drools" \
+#  && $KARAF_HOME/bin/stop
 
 EXPOSE 1099 8101 44444
-RUN echo '#!/bin/bash\nsshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost' > /usr/bin/karaf_client
-RUN chmod +x /usr/bin/karaf_client
-RUN /opt/karaf/bin/start clean; until sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost version; do sleep 5s; done; /opt/karaf/bin/stop;
+#RUN echo '#!/bin/bash\nsshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost' > /usr/bin/karaf_client
+#RUN chmod +x /usr/bin/karaf_client
+#RUN /opt/karaf/bin/start clean; until sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost version; do sleep 5s; done; /opt/karaf/bin/stop;
 
-#RUN $KARAF_HOME/bin/start; \
-#    until sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost version; do sleep 5s; done; \
-#    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install webconsole; \
-#    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-dependencies; \
-#    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-jackson; \
-#   sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-email-dependencies; \
-#    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-cxf; \
-#    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-drools; \
-#    $KARAF_HOME/bin/stop;
+RUN $KARAF_HOME/bin/start; \
+    until sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost version; do sleep 5s; done; \
+    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install webconsole; \
+    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-dependencies; \
+    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-jackson; \
+   sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-email-dependencies; \
+    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-cxf; \
+    sshpass -p karaf ssh -tt -p 8101 -o StrictHostKeyChecking=no karaf@localhost feature:install wss-osgi-drools; \
+    $KARAF_HOME/bin/stop;
 
 EXPOSE 8443 8181 5701 54327
     
 # Define default command.
-CMD ["bash"]
+ENTRYPOINT ["/opt/karaf/bin/karaf"]
