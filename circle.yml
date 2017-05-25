@@ -11,5 +11,4 @@ dependencies:
 
 test:
   override:
-    - docker run -d -p 8181:8181 circleci/karaf-test; sleep 30
-    - curl --retry 10 --retry-delay 5 -v http://localhost:8181
+    - docker run -p 8181:8181 circleci/karaf-test; sleep 30
