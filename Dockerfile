@@ -85,7 +85,7 @@ RUN echo $KARAF_HOME
 
 EXPOSE 1099 8101 44444
 
-RUN /opt/karaf/bin/start clean; until /opt/karaf/bin/client -u karaf version; do sleep 5s; done; /opt/karaf/bin/stop;
+RUN /opt/karaf/bin/start clean; until /opt/karaf/bin/client -v -u karaf -p karaf version; do sleep 5s; done; /opt/karaf/bin/stop;
 
 RUN $KARAF_HOME/bin/start; \
     until $KARAF_HOME/bin/client -a 8103 -u karaf version; do sleep 5s; done; \
