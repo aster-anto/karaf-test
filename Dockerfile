@@ -80,7 +80,7 @@ RUN echo $KARAF_HOME
 #  "feature:install wss-osgi-drools" \
 #  && $KARAF_HOME/bin/stop
 
-RUN $KARAF_HOME/bin/start; \
+RUN $KARAF_HOME/bin/start clean; \
     until $KARAF_HOME/bin/client -a 8103 -u karaf version; do sleep 5s; done; \
     $KARAF_HOME/bin/client -a 8103 -u karaf feature:install webconsole; \
     $KARAF_HOME/bin/client -a 8103 -u karaf feature:install wss-osgi-dependencies; \
