@@ -66,7 +66,7 @@ VOLUME "$USER_HOME_DIR/.m2"
 
 #COPY ./karaf/* "$KARAF_HOME/deploy/"
 ENV PATH $PATH:$JAVA_HOME/bin
-RUN java -verion
+RUN java -version
 RUN echo $JAVA_HOME
 RUN which java
 
