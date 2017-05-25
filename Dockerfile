@@ -69,6 +69,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN java -version
 RUN echo $JAVA_HOME
 RUN which java
+RUN echo $KARAF_HOME
 
 #RUN $KARAF_HOME/bin/start \
 #  && echo "feature:install webconsole" \
