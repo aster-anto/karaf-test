@@ -75,7 +75,7 @@ RUN echo $JAVA_HOME
 RUN which java
 RUN echo $KARAF_HOME
 
-RUN $KARAF_HOME/bin/start clean\
+RUN $KARAF_HOME/bin/karaf \
   && echo "feature:install webconsole" \
   "feature:install wss-osgi-dependencies" \
   "feature:install wss-osgi-jackson" \
