@@ -62,7 +62,7 @@ RUN wget http://www-us.apache.org/dist/karaf/${KARAF_VERSION}/apache-karaf-${KAR
 VOLUME ./karaf "$KARAF_HOME/deploy"
 VOLUME "$USER_HOME_DIR/.m2"
 
-COPY ./karaf/* "$KARAF_HOME/deploy/"
+#COPY ./karaf/* "$KARAF_HOME/deploy/"
 
 RUN $KARAF_HOME/bin/start \
   && echo "feature:install webconsole" \
