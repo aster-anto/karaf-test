@@ -32,6 +32,8 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
 
+RUN apt-get install -y oracle-java8-set-default
+
 # Define working directory.
 WORKDIR /home
 
